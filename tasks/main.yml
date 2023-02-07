@@ -1,2 +1,13 @@
 ---
 # tasks file for macos-rosetta
+- name: Check for presence of Rosetta 2
+  stat:
+    path: "/Library/Apple/System/Library/Receipts/com.apple.pkg.RosettaUpdateAuto.plist"
+  register: rosetta_plist
+
+- name: Install Rosetta 2
+  become: true
+  comand:
+    stdin: "{{ ansible_become_password }}"
+    cmd: softwareupdate --install-rosetta --stdinpass --agree-to-license
+  when: rosetta_plist.stat.exsists
