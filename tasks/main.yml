@@ -7,7 +7,7 @@
 
 - name: Install Rosetta 2
   become: true
-  comand:
+  command:
     stdin: "{{ ansible_become_password }}"
     cmd: softwareupdate --install-rosetta --stdinpass --agree-to-license
   when: rosetta_plist.stat.exsists
